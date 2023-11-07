@@ -5,7 +5,7 @@ const EguaEditor = () => {
     <div>
       <Editor
         height="100vh"
-        width="60vw"
+        width="100vw"
         theme='vs-dark'
         defaultLanguage="javascript"
         defaultValue="// Start coding here..."
