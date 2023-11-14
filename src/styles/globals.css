@@ -7,4 +7,16 @@ body{
   display: flex;
   flex-direction: row-reverse;
   width: 70vw;
+  background-color: #252526	;
+}
+
+.editorTopBar button{
+  background-color: #252526;
+  color: white;
+  border: 0;
+}
+
+.editorTopBar button:hover{
+  background-color: #1e1e1e;
+  cursor: pointer;
 }
