@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@designliquido/delegua": "^0.27.0",
+    "@designliquido/delegua-estatistica": "^0.0.5",
+    "@designliquido/delegua-fisica": "^0.0.2",
+    "@designliquido/delegua-matematica": "^0.2.0",
+    "@designliquido/delegua-tempo": "^0.0.1",
     "@monaco-editor/react": "^4.6.0",
     "monaco-editor": "^0.44.0",
     "next": "14.0.1",
