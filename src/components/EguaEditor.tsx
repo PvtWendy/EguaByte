@@ -1,10 +1,30 @@
 import Editor from "@monaco-editor/react";
 import { useState } from "react";
+import { DeleguaWeb } from "./DeleguaWeb";
+
 
 const EguaEditor = () => {
-  const [code, setCode] = useState<string | undefined>("// Start coding here...");
+  const [code, setCode] = useState<string>("// Start coding here...");
 
-  const handleExecute = () => {
+
+  const handleEditorChange = (value : string | undefined) => {
+    setCode(value || "");
+  };
+
+
+  const handleExecute = async function () {
+    const delegua = new DeleguaWeb("", console.log());
+
+    const codigo = code.split("\n")
+
+    const retornoLexador = delegua.lexador.mapear(codigo, -1);
+    const retornoAvaliadorSintatico =
+        delegua.avaliadorSintatico.analisar(retornoLexador, 0);
+
+    await delegua.executar({ retornoLexador, retornoAvaliadorSintatico });
+};
+
+  const handleExecuteee = () => {
     try {
       if (code !== undefined) {
         const result = eval(code);
@@ -14,6 +34,7 @@ const EguaEditor = () => {
       console.error(error);
     }
   };
+  
   return (
     <div>
       <div className="editorTopBar">
@@ -24,8 +45,8 @@ const EguaEditor = () => {
          width="70vw"
          theme='vs-dark'
          defaultLanguage="javascript"
-         defaultValue={code}
-         onChange={(value, event) => setCode(value)}
+         value={code}
+         onChange={handleEditorChange}
       />
     </div>
   );
