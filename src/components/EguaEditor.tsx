@@ -34,14 +34,14 @@ const EguaEditor = () => {
         <button onClick={handleExecute}>Executar</button>
       </div>
       <Editor
-        height="85vh"
+        height="70vh"
         width="70vw"
         theme="vs-dark"
         defaultLanguage="javascript"
         value={code}
         onChange={handleEditorChange}
       />
-      <div>
+      <div className="editorConsole">
         {consoleResult.map((element, index) => (
           <p key={index}>{element}</p>
         ))}
