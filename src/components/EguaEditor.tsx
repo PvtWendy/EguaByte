@@ -23,17 +23,6 @@ const EguaEditor = () => {
 
     await delegua.executar({ retornoLexador, retornoAvaliadorSintatico });
 };
-
-  const handleExecuteee = () => {
-    try {
-      if (code !== undefined) {
-        const result = eval(code);
-        console.log(result);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
   
   return (
     <div>
