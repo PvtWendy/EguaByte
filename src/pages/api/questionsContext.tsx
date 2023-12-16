@@ -36,6 +36,12 @@ export const QuestionsProvider: React.FC<QuestionsProviderProps> = ({ children }
   //Define the reducer
   const reducer = (state: QuestionsState, action: Action): QuestionsState => {
     switch (action.type) {
+      case "ChangeCurrentQuestion1":
+        return { value: "Question 1" };
+      case "ChangeCurrentQuestion2":
+        return { value: "Question 2" };
+      case "ChangeCurrentQuestion3":
+        return { value: "Question 3" };
       default:
         return state;
     }
