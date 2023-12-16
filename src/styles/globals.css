@@ -36,7 +36,7 @@ body{
 }
 
 .questions{
-  width:30vw;
+  width:30%;
   height: 100vh;
   background-color: #252526;
   display: flex;
@@ -60,6 +60,6 @@ body{
 }
 
 main{
-  width: 100vw;
+  width: 99.2vw;
   display: flex;
 }
