@@ -64,7 +64,7 @@ const EguaEditor = () => {
           currentCode +
           "\n" +
           "taxaPosNeg([-4, 3, -9 ,0, 4, 1])\n" +
-          "taxaPosNeg([-1, -2, -3 4 5 6])\n" +
+          "taxaPosNeg([-1, -2, -3, 4, 5, 6])\n" +
           "taxaPosNeg([0, 0, 0 ,0 ,0, 0])"
         );
       case "Question 3":
@@ -206,11 +206,11 @@ const EguaEditor = () => {
 
       default:
         return (
-          <div className="editorConsole">
-            {consoleResult.map((element, index) => (
+         
+            consoleResult.map((element, index) => (
               <p key={index}>{element}</p>
-            ))}
-          </div>
+            ))
+       
         );
     }
   };
