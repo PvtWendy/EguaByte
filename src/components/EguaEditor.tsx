@@ -76,8 +76,8 @@ const EguaEditor = () => {
         <button onClick={handleExecute}>Executar</button>
       </div>
       <Editor
-        height="70vh"
-        width="70vw"
+        height="70%"
+        width="100%"
         theme="vs-dark"
         defaultLanguage="javascript"
         value={code}
