@@ -71,9 +71,9 @@ const EguaEditor = () => {
         return (
           currentCode +
           "\n" +
-          "inteiroSolitario([Value1, Value2, Value3])\n" +
-          "inteiroSolitario([Value4, Value5, Value6])\n" +
-          "inteiroSolitario([Value7, Value8, Value9])"
+          "inteiroSolitario([1, 2, 3 , 4, 3, 2 ,1])\n" +
+          "inteiroSolitario([1,2 ,3 ,2 ,1])\n" +
+          "inteiroSolitario([5, 5, 6, 4, 4])"
         );
       default:
         return currentCode;
