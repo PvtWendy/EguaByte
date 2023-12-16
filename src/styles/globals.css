@@ -2,12 +2,17 @@ body{
   margin: 0;
 }
 
+.editorContainer{
+  width: 70%;
+  height: 100vh;
+}
 .editorTopBar{
   height: 5vh;
   display: flex;
   flex-direction: row-reverse;
-  width: 70vw;
-  background-color: #252526	;
+  width: 100%;
+  background-color: #252526;
+
 }
 
 .editorTopBar button{
@@ -23,9 +28,8 @@ body{
 
 .editorConsole{
   background-color: #1e1e1e;
-  height: 25vh;
-  width: 70vw;
-  overflow: scroll;
+  height: 25%;
+  width: 100%;
   border-top: 1px solid white;
 }
 
@@ -58,6 +62,23 @@ body{
   background-color: #1e1e1e;
 
 }
+
+.resultTable {
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  margin: 5% auto;
+  width: 90%;
+}
+
+.resultTable th { 
+  border: 1px solid whitesmoke;
+}
+
+.resultTable td{
+  border: 1px solid whitesmoke;
+  text-align: center;
+}
+
 
 main{
   width: 99.2vw;

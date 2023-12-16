@@ -8,10 +8,12 @@ const EguaEditor = () => {
   const [consoleResult, setConsoleResult] = useState<string[]>([]);
   const { questions } = useQuestions();
 
+  //Effect to update code when questions.value is changed
   useEffect(() => {
     setCode(getDefaultCode());
   }, [questions.value]);
 
+  //The code it updates to
   function getDefaultCode(): string {
     switch (questions.value) {
       case "Question 1":
@@ -48,14 +50,18 @@ const EguaEditor = () => {
         return "escreva('Olá mundo')";
     }
   }
+
+  //Editor changes handler
   const handleEditorChange = (value: string | undefined) => {
     setCode(value || "");
   };
 
+  //Adds to ConsoleResult the console logs
   const executeConsole = (result: string) => {
     setConsoleResult((prevResult: string[]) => [...prevResult, result]);
   };
 
+  //Makes Delegua actually able to run
   const handleExecute = async function () {
     const delegua = new DeleguaWeb("", executeConsole);
 
@@ -70,8 +76,95 @@ const EguaEditor = () => {
     await delegua.executar({ retornoLexador, retornoAvaliadorSintatico });
   };
 
+  //Function to render the table that displays test results
+  const renderTable = () => {
+    switch (questions.value) {
+      case "Question 1":
+        return (
+          <table className="resultTable">
+            <thead>
+              <tr>
+                <th>Entrada</th>
+                <th>Saída Esperada</th>
+                <th>Saída Encontrada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Value1</td>
+                <td>Expected1</td>
+                <td>Actual1</td>
+              </tr>
+              <tr>
+                <td>Value2</td>
+                <td>Expected2</td>
+                <td>Actual2</td>
+              </tr>
+            </tbody>
+          </table>
+        );
+      case "Question 2":
+        return (
+          <table className="resultTable">
+            <thead>
+              <tr>
+                <th>Entrada</th>
+                <th>Saída Esperada</th>
+                <th>Saída Encontrada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Value1</td>
+                <td>Expected1</td>
+                <td>Actual1</td>
+              </tr>
+              <tr>
+                <td>Value2</td>
+                <td>Expected2</td>
+                <td>Actual2</td>
+              </tr>
+            </tbody>
+          </table>
+        );
+
+      case "Question 3":
+        return (
+          <table className="resultTable"> 
+            <thead>
+              <tr>
+                <th>Entrada</th>
+                <th>Saída Esperada</th>
+                <th>Saída Encontrada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Value1</td>
+                <td>Expected1</td>
+                <td>Actual1</td>
+              </tr>
+              <tr>
+                <td>Value2</td>
+                <td>Expected2</td>
+                <td>Actual2</td>
+              </tr>
+            </tbody>
+          </table>
+        );
+
+      default:
+        return (
+          <div className="editorConsole">
+            {consoleResult.map((element, index) => (
+              <p key={index}>{element}</p>
+            ))}
+          </div>
+        );
+    }
+  };
   return (
-    <div>
+    <div className="editorContainer">
       <div className="editorTopBar">
         <button onClick={handleExecute}>Executar</button>
       </div>
@@ -84,9 +177,7 @@ const EguaEditor = () => {
         onChange={handleEditorChange}
       />
       <div className="editorConsole">
-        {consoleResult.map((element, index) => (
-          <p key={index}>{element}</p>
-        ))}
+        {renderTable()}
       </div>
     </div>
   );
