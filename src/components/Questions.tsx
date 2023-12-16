@@ -77,13 +77,14 @@ export default function Questions() {
             </p>
             <p>
               Sua responsabilidade será criar uma função dentro do template
-              fornecido, que irá produzir as respostas corretas
-              usando "escreva()".
+              fornecido, que irá produzir as respostas corretas usando
+              "escreva()".
             </p>
             <p>
               Haverá de 3 a 5 testes automatizados que indicarão se sua função
-              foi feita corretamente e apontarão onde estão seus erros. Boa
-              sorte!
+              foi feita corretamente e apontarão onde estão seus erros. Esssa
+              página também serve como um editor livre, onde você pode escrever
+              o que quiser, e executar no console. Boa sorte!
             </p>
           </div>
         );
@@ -95,6 +96,10 @@ export default function Questions() {
       {menuState ? (
         <div>
           <button onClick={() => toggleQuestions()}>Voltar</button>
+          <button onClick={() => handleButtonClick(0)}>
+            Pagina Inicial: <br />
+            Editor Livre
+          </button>
           <button onClick={() => handleButtonClick(1)}>
             Exercicio 1: <br />
             Soma Maior e Menor
