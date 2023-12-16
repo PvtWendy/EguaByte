@@ -63,13 +63,36 @@ export default function Questions() {
           </div>
         );
       default:
-        return null;
+        return (
+          <div>
+            <h2>Bem-vindo ao ÉguaByte!</h2>
+            <p>
+              O ÉguaByte é uma plataforma baseada em Delegua que imita o
+              HackerRank, onde suas habilidades de programação serão testadas.
+            </p>
+            <p>
+              Cada exercício consiste em uma descrição, o que você terá que
+              fazer, um exemplo das entradas que serão fornecidas e um exemplo
+              das saídas que devem ser geradas para essa entrada.
+            </p>
+            <p>
+              Sua responsabilidade será criar uma função dentro do template
+              fornecido, que irá produzir as respostas corretas
+              usando "escreva()".
+            </p>
+            <p>
+              Haverá de 3 a 5 testes automatizados que indicarão se sua função
+              foi feita corretamente e apontarão onde estão seus erros. Boa
+              sorte!
+            </p>
+          </div>
+        );
     }
   };
 
   return (
     <div className="questions">
-      {!menuState ? (
+      {menuState ? (
         <div>
           <button onClick={() => toggleQuestions()}>Voltar</button>
           <button onClick={() => handleButtonClick(1)}>
