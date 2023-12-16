@@ -33,3 +33,31 @@ body{
   color: whitesmoke;
   
 }
+
+.questions{
+  width:30vw;
+  height: 100vh;
+  background-color: #252526;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.questions button{
+  background-color: #252526;
+  color: white;
+  font-size: larger;
+  padding: 1vw 0;
+  border: 0;
+  width: 100%;
+}
+
+.questions button:hover{
+  background-color: #1e1e1e;
+
+}
+
+main{
+  width: 100vw;
+  display: flex;
+}
