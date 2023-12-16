@@ -23,8 +23,6 @@ const EguaEditor = () => {
           // Escreva sua função aqui
 
         }
-
-        somaMinMax([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         `;
       case "Question 2":
         setConsoleResult([]);
@@ -33,8 +31,6 @@ const EguaEditor = () => {
           // Escreva sua função aqui
 
         }
-
-        taxaPosNeg([0, 1, 2, 3, 4, 5, -6, 7, -8, -9, -10])
         `;
       case "Question 3":
         setConsoleResult([]);
@@ -43,13 +39,46 @@ const EguaEditor = () => {
           // Escreva sua função aqui
 
         }
-
-        somaMinMax([1, 2, 3, 4, 5, 4, 3, 2, 1])
         `;
       default:
         return "escreva('Olá mundo')";
     }
   }
+
+  // Function to append additional code based on the question
+  const appendAdditionalCode = (
+    currentCode: string,
+    questionValue: string
+  ): string => {
+    switch (questionValue) {
+      case "Question 1":
+        return (
+          currentCode +
+          "\n" +
+          "somaMinMax([100, 5, 50, 10, 25])\n" +
+          "somaMinMax([5, 5, 5, 5, 5])\n" +
+          "somaMinMax([1, 2, 3, 4, 5])"
+        );
+      case "Question 2":
+        return (
+          currentCode +
+          "\n" +
+          "taxaPosNeg([-4, 3, -9 ,0, 4, 1])\n" +
+          "taxaPosNeg([-1, -2, -3 4 5 6])\n" +
+          "taxaPosNeg([0, 0, 0 ,0 ,0, 0])"
+        );
+      case "Question 3":
+        return (
+          currentCode +
+          "\n" +
+          "inteiroSolitario([Value1, Value2, Value3])\n" +
+          "inteiroSolitario([Value4, Value5, Value6])\n" +
+          "inteiroSolitario([Value7, Value8, Value9])"
+        );
+      default:
+        return currentCode;
+    }
+  };
 
   //Editor changes handler
   const handleEditorChange = (value: string | undefined) => {
@@ -63,10 +92,14 @@ const EguaEditor = () => {
 
   //Makes Delegua actually able to run
   const handleExecute = async function () {
-    setConsoleResult([])
+    setConsoleResult([]);
     const delegua = new DeleguaWeb("", executeConsole);
 
-    const codigo = code.split("\n");
+    const currentCode = code;
+
+    const updatedCode = appendAdditionalCode(currentCode, questions.value);
+
+    const codigo = updatedCode.split("\n");
 
     const retornoLexador = delegua.lexador.mapear(codigo, -1);
     const retornoAvaliadorSintatico = delegua.avaliadorSintatico.analisar(
@@ -121,14 +154,21 @@ const EguaEditor = () => {
             </thead>
             <tbody>
               <tr>
-                <td>Value1</td>
-                <td>Expected1</td>
-                <td>Actual1</td>
+                <td>-4 3 -9 0 4 1</td>
+                <td>
+                  0.500000 <br /> 0.333333 <br /> 0.166667
+                </td>
+                <td>{consoleResult[0]} <br /> {consoleResult[1]} <br /> {consoleResult[2]}</td>
               </tr>
               <tr>
-                <td>Value2</td>
-                <td>Expected2</td>
-                <td>Actual2</td>
+                <td>-1 -2 -3 4 5 6</td>
+                <td>0.500000 <br /> 0.500000 <br /> 0</td>
+                <td>{consoleResult[3]} <br /> {consoleResult[4]} <br /> {consoleResult[5]}</td>
+              </tr>
+              <tr>
+                <td>0 0 0 0 0 0 0</td>
+                <td>0 <br />0 <br /> 1</td>
+                <td>{consoleResult[6]} <br /> {consoleResult[7]} <br /> {consoleResult[8]}</td>
               </tr>
             </tbody>
           </table>
@@ -146,14 +186,19 @@ const EguaEditor = () => {
             </thead>
             <tbody>
               <tr>
-                <td>Value1</td>
-                <td>Expected1</td>
-                <td>Actual1</td>
+                <td>1 2 3 4 3 2 1</td>
+                <td>4</td>
+                <td>{consoleResult[0]}</td>
               </tr>
               <tr>
-                <td>Value2</td>
-                <td>Expected2</td>
-                <td>Actual2</td>
+                <td>1 2 3 2 1</td>
+                <td>3</td>
+                <td>{consoleResult[1]}</td>
+              </tr>
+              <tr>
+                <td>5 5 6 4 4</td>
+                <td>6</td>
+                <td>{consoleResult[2]}</td>
               </tr>
             </tbody>
           </table>
@@ -169,6 +214,7 @@ const EguaEditor = () => {
         );
     }
   };
+
   return (
     <div className="editorContainer">
       <div className="editorTopBar">
