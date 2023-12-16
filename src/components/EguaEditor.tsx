@@ -63,6 +63,7 @@ const EguaEditor = () => {
 
   //Makes Delegua actually able to run
   const handleExecute = async function () {
+    setConsoleResult([])
     const delegua = new DeleguaWeb("", executeConsole);
 
     const codigo = code.split("\n");
@@ -91,14 +92,19 @@ const EguaEditor = () => {
             </thead>
             <tbody>
               <tr>
-                <td>Value1</td>
-                <td>Expected1</td>
-                <td>Actual1</td>
+                <td>100 5 50 10 25</td>
+                <td>90 180</td>
+                <td>{consoleResult[0]}</td>
               </tr>
               <tr>
-                <td>Value2</td>
-                <td>Expected2</td>
-                <td>Actual2</td>
+                <td>5 5 5 5 5</td>
+                <td>25 25</td>
+                <td>{consoleResult[1]}</td>
+              </tr>
+              <tr>
+                <td>1 2 3 4 5</td>
+                <td>10 14</td>
+                <td>{consoleResult[2]}</td>
               </tr>
             </tbody>
           </table>
@@ -130,7 +136,7 @@ const EguaEditor = () => {
 
       case "Question 3":
         return (
-          <table className="resultTable"> 
+          <table className="resultTable">
             <thead>
               <tr>
                 <th>Entrada</th>
@@ -176,9 +182,7 @@ const EguaEditor = () => {
         value={code}
         onChange={handleEditorChange}
       />
-      <div className="editorConsole">
-        {renderTable()}
-      </div>
+      <div className="editorConsole">{renderTable()}</div>
     </div>
   );
 };
