@@ -7,20 +7,43 @@ const EguaEditor = () => {
   const [code, setCode] = useState<string>("escreva('Olá mundo')");
   const [consoleResult, setConsoleResult] = useState<string[]>([]);
   const { questions } = useQuestions();
-  
+
   useEffect(() => {
-    
     setCode(getDefaultCode());
   }, [questions.value]);
 
   function getDefaultCode(): string {
     switch (questions.value) {
       case "Question 1":
-        return "// Default code for Question 1";
+        setConsoleResult([]);
+        return `
+        funcao somaMinMax(array){
+          // Escreva sua função aqui
+
+        }
+
+        somaMinMax([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        `;
       case "Question 2":
-        return "// Default code for Question 2";
+        setConsoleResult([]);
+        return `
+        funcao taxaPosNeg(array){
+          // Escreva sua função aqui
+
+        }
+
+        taxaPosNeg([0, 1, 2, 3, 4, 5, -6, 7, -8, -9, -10])
+        `;
       case "Question 3":
-        return "// Default code for Question 3";
+        setConsoleResult([]);
+        return `
+        funcao inteiroSolitario(array){
+          // Escreva sua função aqui
+
+        }
+
+        somaMinMax([1, 2, 3, 4, 5, 4, 3, 2, 1])
+        `;
       default:
         return "escreva('Olá mundo')";
     }
