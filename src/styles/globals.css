@@ -26,6 +26,7 @@ body{
   height: 25vh;
   width: 70vw;
   overflow: scroll;
+  border-top: 1px solid white;
 }
 
 .editorConsole p{
@@ -41,6 +42,7 @@ body{
   display: flex;
   flex-direction: column;
   color: white;
+  border-right: 1px solid white;
 }
 
 .questions button{
