@@ -4,8 +4,8 @@ export type QuestionsState = {
   questionArray: Array<{
     title: string;
     questionJSX: React.ReactNode;
-    input: Array<Array<number>> | null;
-    expectedOutput: string | null;
+    input: Array<string> | null;
+    expectedOutput: Array<string> | null;
     additionalCode: string | null;
     defaultCode: string;
     isCompleted: boolean;
@@ -52,17 +52,24 @@ export const initialState: QuestionsState = {
       isUnlocked: true,
     },
     {
-      title: "Exercicio 1: Escrevendo de 1 a 10",
+      title: "Exercicio 1: Contagem de 1 até 10",
       questionJSX: (
-        <p>
-          Usando o que você sabe, escreva os números de 1 até 10 dentro da
-          função ao lado
-        </p>
+        <div>
+          <p>
+            Usando o que você aprendeu até agora, faça a função ao lado escrever
+            os números de 1 a 10
+          </p>
+        </div>
       ),
       input: null,
-      expectedOutput: "1 2 3 4 5 6 7 8 9 10",
+      expectedOutput: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       additionalCode: "escreverNumeros();",
-      defaultCode: "funcao escreverNumeros(){//escreva sua função aqui};",
+      defaultCode: `
+funcao escreverNumeros(){
+    // Escreva sua função aqui
+
+}
+      `,
       isCompleted: false,
       isUnlocked: true,
     },
