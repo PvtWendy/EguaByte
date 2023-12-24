@@ -4,6 +4,7 @@ import { DeleguaWeb } from "./DeleguaWeb";
 import Modal from "react-modal";
 import { useQuestions } from "@/pages/api/questionsContext";
 import { defineDelegua } from "./DeleguaLanguage";
+import { deleguaCompletionProvider } from "./DeleguaSnippetsProvider";
 
 const EguaEditor = () => {
   const [code, setCode] = useState<string>("escreva('Olá mundo')");
@@ -24,7 +25,12 @@ const EguaEditor = () => {
 
       // Register the Delegua language definition
       monaco.languages.setMonarchTokensProvider("delegua", defineDelegua);
+      
+      //Doesn't work for some reason, returns an error on an import that doesn't exist
+      //And i don't really know what to do to change this
+      //monaco.languages.registerCompletionItemProvider("delegua", deleguaCompletionProvider)
     }
+    
   }, [monaco]);
   //Effect to update code when the Question is changed
   useEffect(() => {
