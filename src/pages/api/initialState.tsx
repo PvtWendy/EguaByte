@@ -73,5 +73,108 @@ funcao escreverNumeros(){
       isCompleted: false,
       isUnlocked: true,
     },
+    {
+      title: "Exercício 2: Filtrar Números Negativos",
+      questionJSX: (
+        <div>
+          <p>
+            Crie uma função que recebe um array de números positivos e negativos
+            e escreve, em uma única linha, os números negativos presentes no
+            array.
+          </p>
+          <p>Exemplo</p>
+          <p>Entrada: 3, -2, 7, -5, 8</p>
+          <p>Saida: -2 -5</p>
+        </div>
+      ),
+      input: ["3, -2, 7, -5, 8", "1, -3, 5, -7, 9", "-2, 4, -6, 8, -10"],
+      expectedOutput: ["-2 -5", "-3 -7", "-2 -6 -10"],
+      additionalCode:
+        "escreverNegativos([3, -2, 7, -5, 8]);escreverNegativos([1, -3, 5, -7, 9]);escreverNegativos([-2, 4, -6, 8, -10]);",
+      defaultCode: `
+    funcao escreverNegativos(numeros){
+        // Escreva sua função aqui
+    
+    }
+      `,
+      isCompleted: false,
+      isUnlocked: false,
+    },
+    {
+      title: "Exercício 3: Inverter uma String",
+      questionJSX: (
+        <div>
+          <p>
+            Crie uma função que recebe uma string como entrada e retorna a
+            string invertida.
+          </p>
+          <p>Exemplo:</p>
+          <p>Entrada: "abcde"</p>
+          <p>Saída: "edcba"</p>
+        </div>
+      ),
+      input: ['abcde', 'hello', 'world'],
+      expectedOutput: ['edcba', 'olleh', 'dlrow'],
+      additionalCode: "inverterString('abcde');inverterString('hello');inverterString('world');",
+      defaultCode: `
+     funcao inverterString(str){
+         // Escreva sua função aqui
+     
+     }
+        `,
+      isCompleted: false,
+      isUnlocked: false,
+    },
+    {
+      title: "Exercício 4: Contar Palavras em uma Frase",
+      questionJSX: (
+        <div>
+          <p>
+            Crie uma função que recebe uma frase como entrada e conta o número
+            de palavras na frase.
+          </p>
+          <p>Exemplo:</p>
+          <p>Entrada: "Olá, como vai?"</p>
+          <p>Saída: 3</p>
+        </div>
+      ),
+      input: ['Olá, como vai?', 'Isso é um exemplo.', 'Conte as palavras nesta frase.'],
+      expectedOutput: ["3", "4", "5"],
+      additionalCode: "contarPalavras('Olá, como vai?');contarPalavras('Isso é um exemplo.');contarPalavras('Conte as palavras nesta frase.');",
+      defaultCode: `
+     funcao contarPalavras(frase){
+         // Escreva sua função aqui
+     
+     }
+        `,
+      isCompleted: false,
+      isUnlocked: false,
+    },
+    {
+      title: "Exercício 5: Encontrar o Elemento Único",
+      questionJSX: (
+        <div>
+          <p>
+            Dado um array de inteiros, onde todos os elementos, exceto um,
+            ocorrem duas vezes, encontre o elemento único.
+          </p>
+          <p>Exemplo:</p>
+          <p>Entrada: 1 2 3 1 2</p>
+          <p>Saída: 3</p>
+        </div>
+      ),
+      input: ["1 2 3 1 2", "4 5 4 6 6", "7 8 9 8 7"],
+      expectedOutput: ["3", "5", "9"],
+      additionalCode: "encontrarElementoUnico([1, 2, 3, 1, 2]);encontrarElementoUnico([4, 5, 4, 6, 6]);encontrarElementoUnico([7, 8, 9, 8, 7]);",
+      defaultCode: `
+     funcao encontrarElementoUnico(array){
+         // Escreva sua função aqui
+     
+     }
+        `,
+      isCompleted: false,
+      isUnlocked: false,
+    },
+
   ],
 };
