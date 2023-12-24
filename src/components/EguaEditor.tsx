@@ -1,17 +1,31 @@
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 import { DeleguaWeb } from "./DeleguaWeb";
 import Modal from "react-modal";
 import { useQuestions } from "@/pages/api/questionsContext";
+import { defineDelegua } from "./DeleguaLanguage";
 
 const EguaEditor = () => {
   const [code, setCode] = useState<string>("escreva('Olá mundo')");
   const [consoleResult, setConsoleResult] = useState<string[]>([]);
   const [completed, setCompleted] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
-
+  const monaco = useMonaco();
   const { questions, dispatch } = useQuestions();
 
+  useEffect(() => {
+    if (monaco) {
+      // Register the Delegua language
+      monaco.languages.register({
+        id: "delegua",
+        extensions: [".delegua"],
+        aliases: ["Delegua", "delegua"],
+      });
+
+      // Register the Delegua language definition
+      monaco.languages.setMonarchTokensProvider("delegua", defineDelegua);
+    }
+  }, [monaco]);
   //Effect to update code when the Question is changed
   useEffect(() => {
     setCode(questions.questionArray[questions.questionNumber].defaultCode);
@@ -192,7 +206,7 @@ const EguaEditor = () => {
         height="70%"
         width="100%"
         theme="vs-dark"
-        defaultLanguage="javascript"
+        defaultLanguage="delegua"
         value={code}
         onChange={handleEditorChange}
       />
