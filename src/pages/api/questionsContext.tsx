@@ -1,15 +1,10 @@
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
-import {QuestionsState, initialState} from "./initialState";
-
-
-//TODO:Make context have two values, a questionNumber value, which should go from number to length and
-//an array of objects, that will hold the information that shall be rendered in the UI, that should make it easier to implement
-//different questions
+import { QuestionsState, initialState } from "./initialState";
 
 //Define the action type
 type Action = {
   type: string;
-  payload?:number;
+  payload?: number;
 };
 
 //Create the context
@@ -35,13 +30,25 @@ type QuestionsProviderProps = {
 export const QuestionsProvider: React.FC<QuestionsProviderProps> = ({
   children,
 }) => {
-
   //Define the reducer
   const reducer = (state: QuestionsState, action: Action): QuestionsState => {
     switch (action.type) {
-    
       case "ChangeCurrentQuestion":
-        return {...state, questionNumber: action.payload || 0}
+        return { ...state, questionNumber: action.payload || 0 };
+      case "UpdateQuestionStatus":
+        const updatedQuestions = state.questionArray.map((question, index) => {
+          console.log(state)
+          if (index === state.questionNumber) {
+            return { ...question, isCompleted: true };
+          } else if (index === state.questionNumber + 1) {
+            return { ...question, isUnlocked: true };
+          } else {
+            return question;
+          }
+        });
+
+        return { ...state, questionArray:   updatedQuestions };
+
       default:
         return state;
     }
