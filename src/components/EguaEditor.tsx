@@ -1,12 +1,16 @@
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 import { DeleguaWeb } from "./DeleguaWeb";
+import Modal from "react-modal";
 import { useQuestions } from "@/pages/api/questionsContext";
 
 const EguaEditor = () => {
   const [code, setCode] = useState<string>("escreva('Olá mundo')");
   const [consoleResult, setConsoleResult] = useState<string[]>([]);
-  const { questions } = useQuestions();
+  const [completed, setCompleted] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const { questions, dispatch } = useQuestions();
 
   //Effect to update code when the Question is changed
   useEffect(() => {
@@ -14,9 +18,36 @@ const EguaEditor = () => {
     setConsoleResult([]);
   }, [questions.questionNumber]);
 
+  //When consoleResult is changed to be greater than 1 result, and it isn't the free editor
+  //run checkCompletion
   useEffect(() => {
-    renderTable();
+    if (consoleResult.length > 0 && questions.questionNumber != 0) {
+      checkCompletion();
+    }
   }, [consoleResult]);
+
+  //Closes dialog box
+  const handleDialogClose = () => {
+    dispatch({
+      type: "UpdateQuestionStatus",
+      payload: questions.questionNumber,
+    });
+    setShowDialog(false);
+    setCompleted(false);
+  };
+  //Closes dialog box and changes the questionNumber to the next possible int
+  const handleDialogNext = () => {
+    dispatch({
+      type: "UpdateQuestionStatus",
+      payload: questions.questionNumber,
+    });
+
+    const nextQuestionNumber = questions.questionNumber + 1;
+    dispatch({ type: "ChangeCurrentQuestion", payload: nextQuestionNumber });
+
+    setShowDialog(false);
+    setCompleted(false);
+  };
 
   // Function to append additional code based on the question
   const appendAdditionalCode = (
@@ -55,15 +86,67 @@ const EguaEditor = () => {
       retornoLexador,
       0
     );
-
     await delegua.executar({ retornoLexador, retornoAvaliadorSintatico });
   };
 
-  // Function to render the table that displays test results
+  //Checks if every answer is the same as expected
+  const checkCompletion = () => {
+    const currentQuestion = questions.questionArray[questions.questionNumber];
+    const { expectedOutput } = currentQuestion;
+    const consoleResults = consoleResult.slice(0, expectedOutput?.length ?? 0);
+
+    const combinedResults = (expectedOutput || []).map((item, index) => ({
+      expected: item,
+      result: consoleResults[index],
+    }));
+
+    const isCompleted = combinedResults.every(
+      ({ expected, result }) => result === expected
+    );
+    if (isCompleted) {
+      setCompleted(true);
+      setShowDialog(true);
+    }
+  };
+  //Renders the table header
+  const renderTableHeader = () => {
+    const currentQuestion = questions.questionArray[questions.questionNumber];
+    if (!currentQuestion || questions.questionNumber === 0) {
+      return null; // No header for the free console
+    }
+
+    const { input, expectedOutput } = currentQuestion;
+
+    return (
+      <tr>
+        {input !== null && <th>Entrada</th>}
+        {expectedOutput !== null && <th>Saída Esperada</th>}
+        <th>Saída Encontrada</th>
+      </tr>
+    );
+  };
+  //Renders the table rows
+  const renderTableRow = (
+    { expected, result }: { expected: any; result: any },
+    index: number
+  ) => {
+    const currentQuestion = questions.questionArray[questions.questionNumber];
+
+    return (
+      <tr key={index} className={result === expected ? "green" : ""}>
+        {currentQuestion.input !== null && (
+          <td>{currentQuestion.input[index]}</td>
+        )}
+        <td>{expected}</td>
+        <td>{result}</td>
+      </tr>
+    );
+  };
+
+  //Renders the table that displays test results
   const renderTable = () => {
     const currentQuestion = questions.questionArray[questions.questionNumber];
 
-    //Renders the free console
     if (!currentQuestion || questions.questionNumber === 0) {
       return (
         <div>
@@ -74,39 +157,31 @@ const EguaEditor = () => {
       );
     }
 
-    const { input, expectedOutput } = currentQuestion;
+    const { expectedOutput } = currentQuestion;
     const consoleResults = consoleResult.slice(0, expectedOutput?.length ?? 0);
 
-    // Combine expectedOutput and consoleResults into a single array
     const combinedResults = (expectedOutput || []).map((item, index) => ({
       expected: item,
       result: consoleResults[index],
     }));
-    
+
     return (
       <div>
         <table className="resultTable">
-          <thead>
-            <tr>
-              {input !== null && <th>Entrada</th>}
-              {expectedOutput !== null && <th>Saída Esperada</th>}
-              <th>Saída Encontrada</th>
-            </tr>
-          </thead>
-          <tbody>
-            {combinedResults?.map(({ expected, result }, index) => (
-              <tr key={index} className={result === expected ? "green" : ""}>
-                {input !== null && <td>{input[index]}</td>}
-                <td>{expected}</td>
-                <td>{result}</td>
-              </tr>
-            ))}
-          </tbody>
+          <thead>{renderTableHeader()}</thead>
+          <tbody>{combinedResults.map(renderTableRow)}</tbody>
         </table>
       </div>
     );
   };
 
+  //Style for modalOverlay
+  const modalOverlay = {
+    overlay: {
+      backgroundColor: "rgba(30, 30, 30, 0.5)",
+    },
+    
+  };
   //Renders component
   return (
     <div className="editorContainer">
@@ -122,6 +197,16 @@ const EguaEditor = () => {
         onChange={handleEditorChange}
       />
       <div className="editorConsole">{renderTable()}</div>
+      <Modal
+        className="modal"
+        isOpen={showDialog}
+        onRequestClose={handleDialogClose}
+        style={modalOverlay}
+      >
+        <p>Parabéns, você completou o desafio!</p>
+        <button onClick={handleDialogClose}>Fechar</button>
+        <button onClick={handleDialogNext}>Próximo</button>
+      </Modal>
     </div>
   );
 };
