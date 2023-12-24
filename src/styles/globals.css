@@ -32,7 +32,7 @@ body{
   height: 25%;
   width: 100%;
   border-top: 1px solid white;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .editorConsole p{
@@ -85,6 +85,33 @@ body{
   background-color: green;
 }
 
+.modal{
+  width: 20vw;
+  background-color: #252526;
+  color: white;
+  margin: auto;
+  text-align: center;
+  padding: 2vw;
+  margin-top: 35vh;
+}
+
+.modal p{
+  font-size: x-large;
+}
+
+.modal button{
+  background-color: #252526;
+  color: white;
+  font-size: larger;
+  padding: 1vw;
+  border: 0;
+  width: 50%;
+}
+
+.modal button:hover{
+  background-color: #1e1e1e;
+  cursor: pointer;
+}
 
 main{
   width: 100vw;
