@@ -43,8 +43,9 @@ const EguaEditor = () => {
     });
 
     const nextQuestionNumber = questions.questionNumber + 1;
-    dispatch({ type: "ChangeCurrentQuestion", payload: nextQuestionNumber });
-
+    if (nextQuestionNumber < questions.questionArray.length) {
+      dispatch({ type: "ChangeCurrentQuestion", payload: nextQuestionNumber });
+    }
     setShowDialog(false);
     setCompleted(false);
   };
@@ -180,7 +181,6 @@ const EguaEditor = () => {
     overlay: {
       backgroundColor: "rgba(30, 30, 30, 0.5)",
     },
-    
   };
   //Renders component
   return (
@@ -203,9 +203,18 @@ const EguaEditor = () => {
         onRequestClose={handleDialogClose}
         style={modalOverlay}
       >
-        <p>Parabéns, você completou o desafio!</p>
-        <button onClick={handleDialogClose}>Fechar</button>
-        <button onClick={handleDialogNext}>Próximo</button>
+        {questions.questionNumber + 1 < questions.questionArray.length ? (
+          <>
+            <p>Parabéns, você completou o desafio!</p>
+            <button onClick={handleDialogClose}>Fechar</button>
+            <button onClick={handleDialogNext}>Próximo</button>
+          </>
+        ) : (
+          <>
+            <p>Parabéns, acabaram os exercícios!</p>
+            <button onClick={handleDialogClose}>Fechar</button>
+          </>
+        )}
       </Modal>
     </div>
   );
